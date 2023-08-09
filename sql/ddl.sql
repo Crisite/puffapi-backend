@@ -43,3 +43,23 @@ insert into puffapi.`interface_info` (`id`, `name`, `description`, `url`, `reque
 insert into puffapi.`interface_info` (`id`, `name`, `description`, `url`, `requestHeader`, `responseHeader`, `method`, `userId`, `createTime`, `updateTime`) values (18, '江昊天', '于文昊', 'www.samantha-hill.org', '贺浩宇', '郭鸿煊', '马峻熙', 4475, '2022-04-12 00:38:29', '2022-03-23 18:06:30');
 insert into puffapi.`interface_info` (`id`, `name`, `description`, `url`, `requestHeader`, `responseHeader`, `method`, `userId`, `createTime`, `updateTime`) values (19, '史文轩', '彭立诚', 'www.hedy-lehner.io', '赖致远', '魏志泽', '余越泽', 77, '2022-02-12 01:12:20', '2022-09-30 03:50:27');
 insert into puffapi.`interface_info` (`id`, `name`, `description`, `url`, `requestHeader`, `responseHeader`, `method`, `userId`, `createTime`, `updateTime`) values (20, '范雪松', '毛俊驰', 'www.russel-wiegand.org', '于晓博', '杨修杰', '黎思聪', 777706511, '2022-05-06 20:01:16', '2022-06-04 02:09:29');
+
+
+USE puffapi
+
+-- 用户表
+create table if not exists user
+(
+    id           bigint auto_increment comment 'id' primary key,
+    userName     varchar(256)                           null comment '用户昵称',
+    userAccount  varchar(256)                           not null comment '账号',
+    userAvatar   varchar(1024)                          null comment '用户头像',
+    gender       tinyint                                null comment '性别',
+    userRole     varchar(256) default 'user'            not null comment '用户角色：user / admin',
+    userPassword varchar(512)                           not null comment '密码',
+    createTime   datetime     default CURRENT_TIMESTAMP not null comment '创建时间',
+    updateTime   datetime     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
+    isDelete     tinyint      default 0                 not null comment '是否删除',
+    constraint uni_userAccount
+        unique (userAccount)
+) comment '用户';
